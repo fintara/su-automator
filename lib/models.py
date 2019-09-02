@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod, ABCMeta
 from typing import List, Sized, Mapping, Optional, Dict
 from dataclasses import dataclass, field
 from enum import Enum
@@ -9,9 +8,9 @@ from lib.utils import filter_dict
 @dataclass
 class VenueLocation:
     address: Optional[str]
-    crossStreet: Optional[str]
+    cross_street: Optional[str]
     ll: str
-    postalCode: Optional[str]
+    postal_code: Optional[str]
     city: Optional[str]
     country: Optional[str]
 
@@ -31,8 +30,8 @@ class Venue:
     name: str
     location: VenueLocation
     categories: List[VenueCategory]
-    createdAt: int
-    shortUrl: str
+    created_at: int
+    short_url: str
 
 
 @dataclass
@@ -123,11 +122,11 @@ class VenueSimpleSearch(VenueSimple):
 @dataclass
 class UserDetails:
     id: str
-    firstName: str
-    lastName: str
+    first_name: str
+    last_name: str
 
     def full_name(self) -> str:
-        return f"{self.firstName} {self.lastName}"
+        return f"{self.first_name} {self.last_name}"
 
 
 class VenueFlag(Enum):

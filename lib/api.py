@@ -17,8 +17,8 @@ class FoursquareApi:
         res = self.__get(f"users/{id}").json()['response']['user']
         return UserDetails(
             id=res['id'],
-            firstName=res['firstName'],
-            lastName=res['lastName']
+            first_name=res['firstName'],
+            last_name=res['lastName']
         )
 
     """https://developer.foursquare.com/docs/api/venues/search"""
@@ -54,15 +54,15 @@ class FoursquareApi:
             name=res['name'],
             location=VenueLocation(
                 address=location.get('address'),
-                crossStreet=location.get('crossStreet'),
+                cross_street=location.get('crossStreet'),
                 ll="{},{}".format(location['lat'], location['lng']),
-                postalCode=location.get('postalCode'),
+                postal_code=location.get('postalCode'),
                 city=location.get('city'),
                 country=location.get('country'),
             ),
             categories=[VenueCategory(id=c['id'], name=c['name']) for c in res['categories']],
-            createdAt=res['createdAt'],
-            shortUrl=res['shortUrl']
+            created_at=res['createdAt'],
+            short_url=res['shortUrl']
         )
 
     """https://developer.foursquare.com/docs/api/venues/add"""
@@ -131,7 +131,7 @@ class FoursquareApi:
         # print("[{}] RateLimit: {}/{}".format(tag, remaining, limit))
 
 
-def get_token():
+def get_token() -> str:
     redirect_uri = "http://localhost"
     auth_url_template = "https://foursquare.com/oauth2/authenticate?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}"
     token_url_template = "https://foursquare.com/oauth2/access_token?client_id={client_id}&client_secret={client_secret}&grant_type=authorization_code&redirect_uri={redirect_uri}&code={code}"
