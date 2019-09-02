@@ -35,3 +35,12 @@ Makes superuser's life easier
    You can check `example_*.py` for examples.
 
 The rest can be checked in [Foursquare Developer docs](https://developer.foursquare.com/docs/api/endpoints).
+
+## Available methods
+* `get_user(id: str = "self)` - get user's details
+* `search_venues(query: str, ll: str, radius: int, category_ids=None)` - search for venues near location
+* `search_venues_multiq(query: List[str], ...)` - same as previous with multiple queries
+* `get_venue(id: str)` - get venue's details
+* `add_venue(venue: VenueAddRequest)` - submit new venue
+* `propose_edit(id: str, venue: VenueEditRequest)` - submit changes for venue
+* `flag_venue(id: str, flag: VenueFlag)` - flags a venue with one of the possible problems
