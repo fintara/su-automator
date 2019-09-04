@@ -90,6 +90,9 @@ class VenueSimple:
 class VenueSimpleSearch(VenueSimple):
     distance: int
 
+    def __hash__(self):
+        return self.id.__hash__()
+
 
 @dataclass
 class UserDetails:
