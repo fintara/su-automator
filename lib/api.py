@@ -35,13 +35,17 @@ class FoursquareApi:
         res = self.__get("venues/search", payload)
         res.raise_for_status()
         res = res.json()['response']['venues']
-        return [VenueSimpleSearch(id=row['id'], name=row['name'], distance=row['location']['distance']) for row in res]
+        result = [VenueSimpleSearch(id=row['id'], name=row['name'], distance=row['location']['distance']) for row in res]
+        result.sort(key=lambda x: x.distance)
+        return result
 
     def search_venues_multiq(self, names: List[str], ll: str, radius: int, category_ids=None) -> List[VenueSimpleSearch]:
         if category_ids is None:
             category_ids = []
         results = [self.search_venues(name, ll, radius, category_ids) for name in names]
-        return list(set([x for b in results for x in b]))
+        result = list(set([x for b in results for x in b]))
+        result.sort(key=lambda x: x.distance)
+        return result
 
     """https://developer.foursquare.com/docs/api/venues/details"""
     def get_venue(self, venue_id: str) -> Venue:
