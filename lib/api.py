@@ -78,13 +78,18 @@ class FoursquareApi:
         }
         res = self.__post("venues/add", data)
         if res.status_code == 409:
-            print(res.json())
-            choice = input("Found possible duplicates. Force submit [y/n]: ").strip()
+            res = res.json()['response']
+            print("Found possible duplicates:")
+            for dup in res['candidateDuplicateVenues']:
+                addr=dup['location'].get('formattedAddress') or ["(No address)"]
+                addr=", ".join(addr)
+                print(f"+ https://foursquare.com/v/{dup['id']} :: {dup['name']} ({dup['location']['distance']} m) :: {addr}")
+            choice = input("Force submit [y/n]: ").strip()
             if choice != 'y':
                 return None
             repeat = {
                 'ignoreDuplicates': "true",
-                'ignoreDuplicatesKey': res.json()['response']['ignoreDuplicatesKey']
+                'ignoreDuplicatesKey': res['ignoreDuplicatesKey']
             }
             data = {**data, **repeat}
             res = self.__post("venues/add", data)
