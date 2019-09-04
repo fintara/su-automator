@@ -41,6 +41,7 @@ The rest can be checked in [Foursquare Developer docs](https://developer.foursqu
 * `search_venues(query: str, ll: str, radius: int, category_ids=None)` - search for venues near location
 * `search_venues_multiq(query: List[str], ...)` - same as previous with multiple queries
 * `get_venue(id: str)` - get venue's details
-* `add_venue(venue: VenueAddRequest)` - submit new venue
+* `add_venue(name: str, ll: str, category_id: str)` - submit new venue with minimally required data
+* `add_venue_with_data(name: str, ll: str, category_id: str, data: VenueEditRequest)` - same as previous with additional data
 * `propose_edit(id: str, venue: VenueEditRequest)` - submit changes for venue
 * `flag_venue(id: str, flag: VenueFlag)` - flags a venue with one of the possible problems

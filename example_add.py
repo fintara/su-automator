@@ -22,17 +22,11 @@ for row in data:
 
     venues = api.search_venues_multiq(["technomarket", "техномаркет"], row['ll'], 3000)
 
-    add_request = VenueAddRequest(
-        name="Technomarket",
-        ll=row['ll'],
-        primary_category_id="4bf58dd8d48988d122951735",
+    # not everything can be submitted when new venue is created
+    more_request = VenueEditRequest(
         address=row['street'],
         cross_street=row['cross_street'],
         city=row['city'],
-    )
-
-    # not everything can be submitted when new venue is created
-    more_request = VenueEditRequest(
         translations={
             'bg': "Техномаркет",
             'en': "Technomarket"
@@ -44,7 +38,7 @@ for row in data:
         print("+ https://foursquare.com/v/{} :: {} ({} m)".format(v.id, v.name, v.distance))
 
     if len(venues) == 0:
-        added = api.add_venue(add_request)
+        added = api.add_venue("Technomarket", row['ll'], "4bf58dd8d48988d122951735")
         print(f"Added https://foursquare.com/v/{added.id} :: {added.name}")
         api.propose_edit(added.id, more_request)
         print(f"Additionally edited https://foursquare.com/v/{added.id}")

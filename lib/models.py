@@ -35,39 +35,6 @@ class Venue:
 
 
 @dataclass
-class VenueAddRequest:
-    name: str
-    ll: str
-    primary_category_id: str
-    address: Optional[str] = field(default=None)
-    cross_street: Optional[str] = field(default=None)
-    city: Optional[str] = field(default=None)
-    zip: Optional[str] = field(default=None)
-    phone: Optional[str] = field(default=None)
-    url: Optional[str] = field(default=None)
-    parent_id: Optional[str] = field(default=None)
-    chain_ids: List[str] = field(default_factory=list)
-    all_category_ids: List[str] = field(default_factory=list)
-
-    def as_dict(self) -> Dict:
-        result = {
-            'name': self.name,
-            'll': self.ll,
-            'primaryCategoryId': self.primary_category_id,
-            'address': self.address,
-            'crossStreet': self.cross_street,
-            'city': self.city,
-            'zip': self.zip,
-            'phone': self.phone,
-            'url': self.url,
-            'parentId': self.parent_id,
-            'chainIds': self.chain_ids,
-            'allCategoryIds': self.all_category_ids,
-        }
-        return filter_dict(result, lambda x: x[1] is not None)
-
-
-@dataclass
 class VenueEditRequest:
     name: Optional[str] = field(default=None)
     translations: Dict = field(default_factory=dict)

@@ -66,8 +66,12 @@ class FoursquareApi:
         )
 
     """https://developer.foursquare.com/docs/api/venues/add"""
-    def add_venue(self, venue: VenueAddRequest) -> Optional[VenueSimple]:
-        data = venue.as_dict()
+    def add_venue(self, name: str, ll: str, category_id: str) -> Optional[VenueSimple]:
+        data = {
+            'name': name,
+            'll': ll,
+            'primaryCategoryId': category_id,
+        }
         res = self.__post("venues/add", data)
         if res.status_code == 409:
             print(res.json())
@@ -85,10 +89,16 @@ class FoursquareApi:
         return VenueSimple(id=res['id'], name=res['name'])
 
     """https://developer.foursquare.com/docs/api/venues/proposededit"""
-
     def propose_edit(self, venue_id: str, changes: VenueEditRequest):
         res = self.__post("venues/{}/proposeedit".format(venue_id), changes.as_dict())
         return res
+
+    def add_venue_with_data(self, name: str, ll: str, category_id: str, data: VenueEditRequest) -> Optional[VenueSimple]:
+        added = self.add_venue(name, ll, category_id)
+        if added is None:
+            return None
+        self.propose_edit(added.id, data)
+        return added
 
     """https://developer.foursquare.com/docs/api/venues/flag"""
     def flag_venue(self, venue_id: str, flag: VenueFlag):
