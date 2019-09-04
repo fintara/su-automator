@@ -98,6 +98,7 @@ class VenueEditRequest:
             'instagram': self.instagram,
             'facebookUrl': self.facebook,
             'url': self.url,
+            'hours': self.hours,
             'menuUrl': self.menu_url,
             'parentId': self.parent_id,
             'primaryVenueChainId': self.chain_id,
