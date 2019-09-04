@@ -97,8 +97,12 @@ class FoursquareApi:
         added = self.add_venue(name, ll, category_id)
         if added is None:
             return None
-        self.propose_edit(added.id, data)
-        return added
+        try:
+            self.propose_edit(added.id, data)
+            return added
+        except Exception as e:
+            print("Added https://foursquare.com/v/{}, but failed to edit".format(added.id))
+            raise e
 
     """https://developer.foursquare.com/docs/api/venues/flag"""
     def flag_venue(self, venue_id: str, flag: VenueFlag):

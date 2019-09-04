@@ -2,6 +2,7 @@ from typing import List, Sized, Mapping, Optional, Dict
 from dataclasses import dataclass, field
 from enum import Enum
 
+from lib.translations import Translation
 from lib.utils import filter_dict
 
 
@@ -37,7 +38,7 @@ class Venue:
 @dataclass
 class VenueEditRequest:
     name: Optional[str] = field(default=None)
-    translations: Dict = field(default_factory=dict)
+    translations: List[Translation] = field(default_factory=list)
     address: Optional[str] = field(default=None)
     cross_street: Optional[str] = field(default=None)
     city: Optional[str] = field(default=None)
@@ -71,8 +72,8 @@ class VenueEditRequest:
             'primaryVenueChainId': self.chain_id,
             'primaryCategoryId': self.primary_category_id
         }
-        for key, value in self.translations.items():
-            result[f"name:{key}"] = value
+        for translation in self.translations:
+            result[f"name:{translation.code}"] = translation.value
         return filter_dict(result, lambda x: x[1] is not None)
 
 
