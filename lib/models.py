@@ -53,6 +53,28 @@ class VenueEditRequest:
     parent_id: Optional[str] = field(default=None)
     chain_id: Optional[str] = field(default=None)
     primary_category_id: Optional[str] = field(default=None)
+    remove_category_ids: List[str] = field(default_factory=list)
+
+    def merge(self, other: "VenueEditRequest") -> "VenueEditRequest":
+        return VenueEditRequest(
+            name=other.name or self.name,
+            translations=other.translations or self.translations,
+            address=other.address or self.address,
+            cross_street=other.cross_street or self.cross_street,
+            city=other.city or self.city,
+            zip=other.zip or self.zip,
+            phone=other.phone or self.phone,
+            twitter=other.twitter or self.twitter,
+            instagram=other.instagram or self.instagram,
+            facebook=other.facebook or self.facebook,
+            url=other.url or self.url,
+            hours=other.hours or self.hours,
+            menu_url=other.menu_url or self.menu_url,
+            parent_id=other.parent_id or self.parent_id,
+            chain_id=other.chain_id or self.chain_id,
+            primary_category_id=other.primary_category_id or self.primary_category_id,
+            remove_category_ids=other.remove_category_ids or self.remove_category_ids,
+        )
 
     def as_dict(self) -> Dict:
         result = {
@@ -70,7 +92,8 @@ class VenueEditRequest:
             'menuUrl': self.menu_url,
             'parentId': self.parent_id,
             'primaryVenueChainId': self.chain_id,
-            'primaryCategoryId': self.primary_category_id
+            'primaryCategoryId': self.primary_category_id,
+            'removeCategoryIds': ",".join(self.remove_category_ids),
         }
         for translation in self.translations:
             result[f"name:{translation.code}"] = translation.value
