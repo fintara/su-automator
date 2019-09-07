@@ -52,6 +52,8 @@ class VenueEditRequest:
     menu_url: Optional[str] = field(default=None)
     parent_id: Optional[str] = field(default=None)
     chain_id: Optional[str] = field(default=None)
+    wifi: Optional[bool] = field(default=None)
+    credit_cards: Optional[bool] = field(default=None)
     primary_category_id: Optional[str] = field(default=None)
     remove_category_ids: List[str] = field(default_factory=list)
 
@@ -88,6 +90,8 @@ class VenueEditRequest:
             'instagram': self.instagram,
             'facebookUrl': self.facebook,
             'url': self.url,
+            'wifi': "yes" if self.wifi else ("no" if self.wifi == False else None),
+            'creditCards': "yes" if self.credit_cards else ("no" if self.credit_cards == False else None),
             'hours': self.hours,
             'menuUrl': self.menu_url,
             'parentId': self.parent_id,
