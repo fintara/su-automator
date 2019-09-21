@@ -116,6 +116,7 @@ class VenueSimple:
 @dataclass
 class VenueSimpleSearch(VenueSimple):
     distance: int
+    categories: List[VenueCategory]
 
     def __hash__(self):
         return self.id.__hash__()

@@ -33,7 +33,10 @@ def convert_hour(days: str, hours: str) -> str:
         'Monday': 1, 'Tuesday': 2, 'Wednesday': 3, 'Thursday': 4, 'Friday': 5,
         'Saturday': 6, 'Sunday': 7
     }
-    hours_formatted = hours.replace(":", "").replace("-", ",").replace(" ", "")
+    hours_formatted = hours\
+        .replace(":", "")\
+        .replace("-", ",")\
+        .replace(" ", "")
     splitted = [x.strip() for x in days.split("-")]
     if len(splitted) == 1:
         return f"{day_to_num[days]},{hours_formatted}"

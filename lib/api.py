@@ -35,7 +35,11 @@ class FoursquareApi:
         res = self.__get("venues/search", payload)
         res.raise_for_status()
         res = res.json()['response']['venues']
-        result = [VenueSimpleSearch(id=row['id'], name=row['name'], distance=row['location']['distance']) for row in res]
+        result = [VenueSimpleSearch(
+            id=row['id'],
+            name=row['name'],
+            distance=row['location']['distance'],
+            categories=[VenueCategory(id=c['id'], name=c['name']) for c in row['categories']]) for row in res]
         result.sort(key=lambda x: x.distance)
         return result
 
