@@ -40,6 +40,7 @@ class VenueEditRequest:
     name: Optional[str] = field(default=None)
     translations: List[Translation] = field(default_factory=list)
     address: Optional[str] = field(default=None)
+    description: Optional[str] = field(default=None)
     cross_street: Optional[str] = field(default=None)
     city: Optional[str] = field(default=None)
     zip: Optional[str] = field(default=None)
@@ -62,6 +63,7 @@ class VenueEditRequest:
             name=other.name or self.name,
             translations=other.translations or self.translations,
             address=other.address or self.address,
+            description=other.description or self.description,
             cross_street=other.cross_street or self.cross_street,
             city=other.city or self.city,
             zip=other.zip or self.zip,
@@ -83,6 +85,7 @@ class VenueEditRequest:
             'name': self.name,
             'address': self.address,
             'crossStreet': self.cross_street,
+            'description': self.description,
             'city': self.city,
             'zip': self.zip,
             'phone': self.phone,
@@ -90,8 +93,8 @@ class VenueEditRequest:
             'instagram': self.instagram,
             'facebookUrl': self.facebook,
             'url': self.url,
-            'wifi': "yes" if self.wifi else ("no" if self.wifi == False else None),
-            'creditCards': "yes" if self.credit_cards else ("no" if self.credit_cards == False else None),
+            'wifi': "yes" if self.wifi else ("no" if self.wifi is False else None),
+            'creditCards': "yes" if self.credit_cards else ("no" if self.credit_cards is False else None),
             'hours': self.hours,
             'menuUrl': self.menu_url,
             'parentId': self.parent_id,
