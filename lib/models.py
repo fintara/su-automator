@@ -38,6 +38,7 @@ class Venue:
 @dataclass
 class VenueEditRequest:
     name: Optional[str] = field(default=None)
+    latlng: Optional[str] = field(default=None)
     translations: List[Translation] = field(default_factory=list)
     address: Optional[str] = field(default=None)
     description: Optional[str] = field(default=None)
@@ -61,6 +62,7 @@ class VenueEditRequest:
     def merge(self, other: "VenueEditRequest") -> "VenueEditRequest":
         return VenueEditRequest(
             name=other.name or self.name,
+            latlng=other.latlng or self.latlng,
             translations=other.translations or self.translations,
             address=other.address or self.address,
             description=other.description or self.description,
@@ -83,6 +85,7 @@ class VenueEditRequest:
     def as_dict(self) -> Dict:
         result = {
             'name': self.name,
+            'venuell': self.latlng,
             'address': self.address,
             'crossStreet': self.cross_street,
             'description': self.description,
