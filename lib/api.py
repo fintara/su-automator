@@ -68,7 +68,7 @@ class FoursquareApi:
                 city=location.get('city'),
                 country=location.get('country'),
             ),
-            categories=[VenueCategory(id=c['id'], name=c['name']) for c in res['categories']],
+            categories=[VenueCategory(id=c['id'], name=c['name'], primary=c.get('primary')) for c in res['categories']],
             created_at=res['createdAt'],
             short_url=res['shortUrl']
         )

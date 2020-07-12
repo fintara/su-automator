@@ -20,6 +20,7 @@ class VenueLocation:
 class VenueCategory:
     id: str
     name: str
+    primary: Optional[bool]
 
     def __hash__(self):
         return self.id.__hash__()
@@ -33,6 +34,9 @@ class Venue:
     categories: List[VenueCategory]
     created_at: int
     short_url: str
+
+    def primary_category_id(self) -> Optional[str]:
+        return next((c.id for c in self.categories if c.primary is True), None)
 
 
 @dataclass
